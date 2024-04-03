@@ -19,4 +19,7 @@ pytest==8.1.1
 docutils~=0.20.1
 sphinx~=7.2.6
 
+mistune
+docstring_parser
+
 LLMEasyTools~=0.5
