@@ -1,0 +1,62 @@
+[
+    {
+        "id": 0,
+        "text": "Were Scott Derrickson and Ed Wood of the same nationality?",
+        "answer": ["yes"],
+        "type": "comparison"
+    },
+    {
+            "id": 1,
+            "text": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+            "multi_answer": [
+                "Chief of Protocol",
+                ["United Nations General Assembly representative", "Ambassador to the United Nations", "representative to the United Nations General Assembly", "United Nations representative"],
+                "Ambassador to Ghana",
+                "Ambassador to Czechoslovakia"
+            ],
+            "type": "bridge"
+    },
+    {
+        "id": 2,
+        "text": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+        "answer": ["Animorphs"],
+        "type": "bridge",
+        "guess": 1
+    },
+    {
+        "id": 3,
+        "text": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+        "answer": ["no"],
+        "type": "comparison"
+    },
+    {
+        "id": 4,
+        "text": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+        "answer": ["YG Entertainment", "YGE"],
+        "type": "bridge"
+    },
+    {
+        "id": 5,
+        "text": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+        "answer": ["3,677 people", "3,677 seated", "3,677", "3677", "3,677 (2,634 for hockey)", "3677 for general events, and 2634 for hockey games", "2,634 for hockey games and 3,677 for general events", "2,634", "2634", "2,634 people"],
+        "type": "bridge"
+    },
+    {
+        "id": 6,
+        "text": "Who is older, Annie Morton or Terry Richardson?",
+        "answer": ["Terry Richardson", "Terry Richardson is older"],
+        "type": "bridge"
+    },
+    {
+        "id": 7,
+        "text": "Are Local H and For Against both from the United States?",
+        "answer": ["yes"],
+        "type": "comparison"
+    },
+    {
+        "id": 8,
+        "text": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+        "answer": ["Kansas Song", "Kansas Song (We're From Kansas)", "Kansas Song (We’re From Kansas)", "I'm a Jayhawk"],
+        "type": "bridge"
+    }
+]

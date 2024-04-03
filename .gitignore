@@ -1,0 +1,6 @@
+config.json
+.idea
+logs/*
+tmp/*
+experiments/*
+__pycache__/

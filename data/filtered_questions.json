@@ -1,0 +1,70 @@
+[
+  {
+    "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+    "answer": [
+      "Chief of Protocol"
+    ],
+    "type": "bridge",
+    "wrong_answers": [
+      NaN
+    ]
+  },
+  {
+    "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+    "answer": [
+      "Greenwich Village, New York City"
+    ],
+    "type": "bridge",
+    "wrong_answers": [
+      "New York City"
+    ]
+  },
+  {
+    "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+    "answer": [
+      "Eenasul Fateh"
+    ],
+    "type": "bridge",
+    "wrong_answers": [
+      "I couldn't find the information you are looking for."
+    ]
+  },
+  {
+    "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+    "answer": [
+      "David Weissman"
+    ],
+    "type": "bridge",
+    "wrong_answers": [
+      NaN
+    ]
+  },
+  {
+    "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+    "answer": [
+      "1999"
+    ],
+    "type": "bridge",
+    "wrong_answers": [
+      "I could not find the information about when Guns N Roses performed a promo for the movie Kindergarten Cop."
+    ]
+  },
+  {
+    "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+    "answer": [
+      "no"
+    ],
+    "type": "comparison",
+    "wrong_answers": []
+  },
+  {
+    "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+    "answer": [
+      "9,984"
+    ],
+    "type": "bridge",
+    "wrong_answers": [
+      "333,287,557"
+    ]
+  }
+]
