@@ -26,7 +26,7 @@ class OWUTool:
         self.current_document = current_document
 
     @classmethod
-    def get_documents(cls, directory: str, chunk_length: int) -> Dict[MarkdownDocument]:
+    def get_documents(cls, directory: str, chunk_length: int) -> Dict[str, MarkdownDocument]:
         documents = {}
 
         # Iterate over files in the directory
@@ -79,11 +79,11 @@ class OWUTool:
     class OpenFile(BaseModel):
         filename: str = Field(description="Nazwa pliku OWU")
 #    @external_function()
-    def get(self, param: OpenFile):
+    def open_file(self, param: OpenFile):
         """
     Ładuje plik OWU, zachowuje go jako dokument bieżący i pokazuje jego początek.
         """
-        document = self.documents_dict(param.filename)
+        document = self.documents_dict[param.filename]
         self.document = document
         sections = document.section_titles()
         sections_list_md = "\n".join(sections)
@@ -97,77 +97,9 @@ class OWUTool:
 
 if __name__ == "__main__":
     owu_tool = OWUTool('data/OWU')
+    print(owu_tool.show_documents())
 
-    file=''
-    searchparam = WikipediaSearch.Search(query=query)
-    print(scraper.search(searchparam))
-    linkparam = WikipediaSearch.FollowLink(link='Rock Chalk,_Jayhawk')
-    print(scraper.follow_link(linkparam))
-    exit()
+    file='Ogolne_warunki_dodatkowego_indywidualnego_ubezpieczenia_na_wypadek_ciezkich_chorob_obowiaz.md'
+    param = OWUTool.OpenFile(filename=file)
+    print(owu_tool.open_file(param))
 
-#    title = 'Eileen Heckart'
-#    getparam = WikipediaSearch.Get(title=title)
-#    scraper.get(getparam)
-#    if scraper.document:
-#        print(f"{title} found\n")
-#        pprint(scraper.document.text_to_url)
-#
-#    exit()
-#
-#    title = "Lewiston Maineiacs"
-#    getparam = WikipediaSearch.Get(title=title)
-#    scraper.get(getparam)
-#    if scraper.document:
-#        print(f"{title} found\n")
-#        flink = scraper.FollowLink(link='Androscoggin Bank Colisée')
-#        print(scraper.follow_link(flink))
-#
-#
-#
-#    exit()
-    title = "Shirley Temple"
-    title = "Kiss and Tell 1945 film"
-    content_record = scraper.wiki_api_search(title)
-    if content_record.document:
-        print(f"Searching for {title}:\n")
-        document = content_record.document
-        print(document.read_chunk())
-        keyword = 'Shirley Temple'
-        print(f'\nLooking up {keyword}:\n')
-        print(document.lookup(keyword))
-    else:
-        print("No document found")
-
-    print('\n')
-    print('------------------\n')
-    exit()
-
-    title = "Oxygen"
-    content_record = scraper.wiki_api_search(title)
-    if content_record.document:
-        print(f"Searching for {title}:\n")
-        document = content_record.document
-        print(document.read_chunk())
-        print('\nLooking up atomic weight:\n')
-        print(document.lookup('atomic weight'))
-        print('\nSection titles:\n')
-        print(document.section_titles())
-        print("\nRetrieval History:")
-        for record in content_record.retrieval_history:
-            print(record)
-    else:
-        print("No document found")
-
-    print('\n')
-    print('------------------\n')
-
-
-#    search_query = "Machine learning"
-#    search_record = scraper.search(search_query)
-#    if search_record.document:
-#        print(search_record.document.first_chunk())
-#        print("\nRetrieval History:")
-#        for record in search_record.retrieval_history:
-#            print(record)
-#    else:
-#        print("No document found")
