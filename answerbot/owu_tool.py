@@ -93,6 +93,55 @@ class OWUTool:
         observations = observations + "Dokument zaczyna się:\n" + document.read_chunk() + "\n"
         return observations
 
+   @external_function()
+    def lookup(self, param: Lookup):
+        """
+Looks up a word on the current page.
+        """
+        if self.document is None:
+            observations = "No document defined, cannot lookup"
+        else:
+            text = self.document.lookup(param.keyword)
+            observations = 'Keyword "' + param.keyword + '" '
+            if text:
+                num_of_results = len(self.document.lookup_results)
+                observations = observations + f"found on current page in {num_of_results} places. The first occurence:\n" + text
+            else:
+                observations = observations + "not found in current page"
+        return observations
+
+    class Next_Lookup(BaseModel):
+        pass
+
+    @external_function('next')
+    def next_lookup(self, param: Next_Lookup):
+        """
+Jumps to the next occurrence of the word searched previously.
+        """
+        if self.document is None:
+            observations = "No document defined, cannot lookup"
+        elif not self.document.lookup_results:
+            observations = "No lookup results found"
+        else:
+            text = self.document.next_lookup()
+            observations = 'Keyword "' + self.document.lookup_word + '" found in: \n' + text
+            num_of_results = len(self.document.lookup_results)
+            observations = observations + f"\n{self.document.lookup_position} of {num_of_results} places"
+        return observations
+
+    class ReadChunk(BaseModel):
+        pass
+
+    @external_function()
+    def read_chunk(self, param: ReadChunk):
+        """
+Reads the next chunk of text from the current location in the current document.
+        """
+        if self.document is None:
+            observations = "No document defined, cannot read"
+        else:
+            observations = self.document.read_chunk()
+        return observations
 
 
 if __name__ == "__main__":
