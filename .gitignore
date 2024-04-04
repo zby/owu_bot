@@ -4,3 +4,4 @@ logs/*
 tmp/*
 experiments/*
 __pycache__/
+data/OWU/*
