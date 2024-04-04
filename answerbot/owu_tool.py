@@ -55,7 +55,7 @@ class OWUTool:
     @extraction_model()
     class Finish(BaseModel):
         """
-        Finish the task and return the answer.
+        Zakończ zadanie i zwróć odpowiedź.
         """
         answer: str = Field(description="Krótka odpowiedź na pytanie użytkownika")
         answer_short: str = Field(description="Jeszcze krótsza wersja odpowiedzi")
