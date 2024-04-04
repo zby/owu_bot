@@ -93,21 +93,23 @@ class OWUTool:
         observations = observations + "Dokument zaczyna się:\n" + document.read_chunk() + "\n"
         return observations
 
-   @external_function()
+    class Lookup(BaseModel):
+        keyword: str = Field(description="Fraza do wyszukania")
+    @external_function()
     def lookup(self, param: Lookup):
         """
-Looks up a word on the current page.
+Wyszukuje słowo na bieżącej stronie.
         """
         if self.document is None:
             observations = "No document defined, cannot lookup"
         else:
             text = self.document.lookup(param.keyword)
-            observations = 'Keyword "' + param.keyword + '" '
+            observations = 'Wyszukiwana fraza "' + param.keyword + '" '
             if text:
                 num_of_results = len(self.document.lookup_results)
-                observations = observations + f"found on current page in {num_of_results} places. The first occurence:\n" + text
+                observations = observations + f"znaleziona w bieżącym dokumencie w {num_of_results} miejscach. Pierwsze wystąpienie:\n" + text
             else:
-                observations = observations + "not found in current page"
+                observations = observations + "nie została znaleziona w bieżącym dokumencie"
         return observations
 
     class Next_Lookup(BaseModel):
@@ -116,15 +118,15 @@ Looks up a word on the current page.
     @external_function('next')
     def next_lookup(self, param: Next_Lookup):
         """
-Jumps to the next occurrence of the word searched previously.
+Skacze do następnego wystąpienia wyszukanego słowa.
         """
         if self.document is None:
-            observations = "No document defined, cannot lookup"
+            observations = "Nie ma bieżącego dokumentu i nie można w nim nic wyszukać"
         elif not self.document.lookup_results:
-            observations = "No lookup results found"
+            observations = "Ostatnio wyszukiwana fraza nie została znaleziona w bieżącym dokumencie"
         else:
             text = self.document.next_lookup()
-            observations = 'Keyword "' + self.document.lookup_word + '" found in: \n' + text
+            observations = 'Fraza "' + self.document.lookup_word + '" znaleziona w: \n' + text
             num_of_results = len(self.document.lookup_results)
             observations = observations + f"\n{self.document.lookup_position} of {num_of_results} places"
         return observations
@@ -135,10 +137,10 @@ Jumps to the next occurrence of the word searched previously.
     @external_function()
     def read_chunk(self, param: ReadChunk):
         """
-Reads the next chunk of text from the current location in the current document.
+Wczytuje następny fragment tekstu zaczynając od miejsca gdzie skończył się ostatni fragment w bieżącym dokumencie.
         """
         if self.document is None:
-            observations = "No document defined, cannot read"
+            observations = "Nie bieżącego dokumentu"
         else:
             observations = self.document.read_chunk()
         return observations
