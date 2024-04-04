@@ -5,3 +5,4 @@ tmp/*
 experiments/*
 __pycache__/
 data/OWU/*
+.aider*
