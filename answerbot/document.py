@@ -80,7 +80,16 @@ class Document(ABC):
             return self.text_to_url[ref_or_text]
         return None
 
+    def get_title(self):
+        # This pattern matches '## NO_CONTENT_HERE' and variations
+        pattern = re.compile(r"##\s*NO[_\s]*CONTENT[_\s]*HERE", re.IGNORECASE)
 
+        for title in self.section_titles():
+            # Check if the title does not match the pattern
+            if not pattern.match(title):
+                return title
+
+        return 'Bez tytułu'
 
 class MarkdownLinkShortener(MarkdownRenderer):
     def __init__(self):

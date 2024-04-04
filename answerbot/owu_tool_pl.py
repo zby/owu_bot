@@ -46,9 +46,8 @@ class OWUTool:
 
     def show_documents(self):
         observations = 'Mamy następujące dokumenty:\n'
-        for filename in self.documents_dict:
-            observations += filename + '\n'
-
+        for filename, document in self.documents_dict.items():
+           observations += f"- Plik: {filename}, Tytuł: {document.get_title()}\n"
         return observations
 
 

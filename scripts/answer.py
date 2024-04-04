@@ -31,5 +31,7 @@ if __name__ == "__main__":
     }
 
     reactor = get_answer(question, config)
-    print(pformat(reactor.prompt.to_messages()))
+    formatted_string = pformat(reactor.prompt.to_messages(), width=180)
+
+    print(formatted_string)
     pprint(reactor.reflection_errors)
