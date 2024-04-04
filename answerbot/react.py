@@ -11,7 +11,7 @@ from pprint import pprint
 from dotenv import load_dotenv
 from .prompt_builder import FunctionalPrompt, PromptMessage, Assistant, System, User, FunctionCall, FunctionResult
 from .prompt_templates import QUESTION_CHECKS, PROMPTS, REFLECTIONS
-from .wikipedia_tool import WikipediaSearch
+from .owu_tool_pl import OWUTool
 
 from llm_easy_tools import ToolBox
 
@@ -23,6 +23,8 @@ logger = logging.getLogger(__name__)
 
 # load OpenAI api key
 load_dotenv()
+
+OWU_DIR = 'data/OWU/'
 
 class LLMReactor:
     def __init__(self, model: str, toolbox: ToolBox,
@@ -126,7 +128,7 @@ class LLMReactor:
                         self.reflection_errors.append(repr(e))
                     else:
                         raise e
-                if isinstance(result, WikipediaSearch.Finish):
+                if isinstance(result, OWUTool.Finish):
                     #self.are_you_sure()
                     self.answer = result.normalized_answer()
                     self.set_finished()
@@ -137,14 +139,14 @@ class LLMReactor:
                 return
 
             if self.step == self.max_llm_calls - 1:
-                step_info = "This was the last wikipedia result you can get - in the next step you need to formulate your answer"
+                step_info = "To były ostatnie wyniki z Wikipedii, jakie możesz uzyskać - w następnym kroku musisz sformułować swoją odpowiedź."
             else:
-                step_info = f"This was {self.step} out of {self.max_llm_calls} wikipedia calls."
+                step_info = f"To było {self.step} z {self.max_llm_calls} dostępów do dokumentacji."
 
             if function_call is not None:
                 message = FunctionResult(function_call.name, result + f"\n\n{step_info}")
             else:
-                message = Assistant("You did not call wikipedia this time - but it still counts. " + step_info)
+                message = Assistant("Nie wydałeś żadnego polecenia tym razem - ale i tak ten krok się liczy. " + step_info)
             logger.info(str(message))
             self.prompt.push(message)
 #            if 'gpt-4' in self.model:
@@ -163,9 +165,9 @@ class LLMReactor:
 
 def get_answer(question, config, client=None):
     print("\n\n<<< Question:", question)
-    wiki_search = WikipediaSearch(max_retries=2, chunk_size=config['chunk_size'])
+    owu_search = OWUTool(OWU_DIR)
     toolbox = ToolBox()
-    toolbox.register_toolset(wiki_search)
+    toolbox.register_toolset(owu_search)
     prompt_class = PROMPTS[config['prompt_class']]
     reflection = REFLECTIONS[config['reflection']]
     reflection_class = None
@@ -174,7 +176,8 @@ def get_answer(question, config, client=None):
     reflection_message = None
     if 'message' in reflection:
         reflection_message = reflection['message']
-    prompt = prompt_class(question, config['max_llm_calls'], reflection_class)
+    documents_list = owu_search.show_documents()
+    prompt = prompt_class(question, documents_list, config['max_llm_calls'], reflection_class)
     reactor = LLMReactor(config['model'], toolbox, prompt, config['max_llm_calls'], reflection_class=reflection_class, reflection_message=reflection_message, client=client)
     reactor.analyze_question(QUESTION_CHECKS[config['question_check']])
     reactor.process_prompt()

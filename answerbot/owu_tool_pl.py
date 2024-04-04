@@ -78,7 +78,7 @@ class OWUTool:
 
     class OpenFile(BaseModel):
         filename: str = Field(description="Nazwa pliku OWU")
-#    @external_function()
+    @external_function()
     def open_file(self, param: OpenFile):
         """
     Ładuje plik OWU, zachowuje go jako dokument bieżący i pokazuje jego początek.
